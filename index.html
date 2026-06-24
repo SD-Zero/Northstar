@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northstar - Digital Painting Application</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="start-menu" class="fullscreen-overlay">
+        <div class="menu-card">
+            <h1>Northstar</h1>
+            <p class="subtitle">Professional Browser Painting Engine</p>
+            <div class="preview-container">
+                <canvas id="menu-preview-canvas"></canvas>
+            </div>
+            <div class="setup-form">
+                <div class="input-group">
+                    <label for="canvas-width">Width (px)</label>
+                    <input type="number" id="canvas-width" value="1920" min="64" max="8192">
+                </div>
+                <div class="input-group">
+                    <label for="canvas-height">Height (px)</label>
+                    <input type="number" id="canvas-height" value="1080" min="64" max="8192">
+                </div>
+                <button id="btn-create-canvas" class="primary-btn">Create Canvas</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-editor" class="hidden">
+        <header class="top-bar">
+            <div class="logo">Northstar</div>
+            <div class="menu-actions">
+                <button id="btn-undo" title="Undo (Ctrl+Z)">↩ Undo</button>
+                <button id="btn-redo" title="Redo (Ctrl+Y)">↪ Redo</button>
+                <button id="btn-zoom-in">🔍+</button>
+                <button id="btn-zoom-out">🔍-</button>
+                <button id="btn-fit-screen">Fit</button>
+                <button id="btn-reset-view">100%</button>
+            </div>
+            <div class="file-actions">
+                <input type="file" id="file-import" accept="image/*" style="display:none">
+                <button id="btn-import">Import Image</button>
+                <button id="btn-export-png">Export PNG</button>
+                <button id="btn-save-project">Save Project</button>
+            </div>
+        </header>
+
+        <div class="workspace-body">
+            <aside class="sidebar left-sidebar">
+                <div class="panel-section">
+                    <h3>Tools</h3>
+                    <div class="tool-grid">
+                        <button class="tool-btn active" data-tool="brush" title="Brush">🖌️</button>
+                        <button class="tool-btn" data-tool="eraser" title="Eraser">🧽</button>
+                        <button class="tool-btn" data-tool="smudge" title="Smudge">☝️</button>
+                        <button class="tool-btn" data-tool="blur" title="Blur">💧</button>
+                        <button class="tool-btn" data-tool="bucket" title="Paint Bucket">🪣</button>
+                        <button class="tool-btn" data-tool="eyedropper" title="Eyedropper">🧪</button>
+                    </div>
+                </div>
+                <div class="panel-section brush-selector-section">
+                    <h3>Brushes</h3>
+                    <select id="brush-category-select"></select>
+                    <div id="brush-list" class="list-container"></div>
+                </div>
+            </aside>
+
+            <main id="viewport" class="canvas-viewport">
+                <div id="canvas-container">
+                    </div>
+            </main>
+
+            <aside class="sidebar right-sidebar">
+                <div class="panel-section color-section">
+                    <h3>Color</h3>
+                    <input type="color" id="color-picker" value="#3b82f6">
+                    <div id="swatch-history" class="swatch-grid"></div>
+                </div>
+
+                <div class="panel-section settings-section">
+                    <h3>Brush Settings</h3>
+                    <div class="scroll-settings">
+                        <div class="setting-row"><label>Size</label><input type="range" id="sett-size" min="1" max="200" value="20"><span id="val-size">20</span></div>
+                        <div class="setting-row"><label>Opacity</label><input type="range" id="sett-opacity" min="0" max="1" step="0.01" value="1"><span id="val-opacity">1.0</span></div>
+                        <div class="setting-row"><label>Spacing</label><input type="range" id="sett-spacing" min="0.05" max="2" step="0.01" value="0.1"><span id="val-spacing">0.1</span></div>
+                        <div class="setting-row"><label>Hardness</label><input type="range" id="sett-hardness" min="0" max="1" step="0.01" value="0.8"><span id="val-hardness">0.8</span></div>
+                        <div class="setting-row"><label>Stabilization</label><input type="range" id="sett-stabilization" min="0" max="20" value="5"><span id="val-stabilization">5</span></div>
+                        <div class="setting-row"><label>Start Thickness</label><input type="range" id="sett-start-thick" min="0" max="1" step="0.01" value="0.2"><span id="val-start-thick">0.2</span></div>
+                        <div class="setting-row"><label>End Thickness</label><input type="range" id="sett-end-thick" min="0" max="1" step="0.01" value="0.2"><span id="val-end-thick">0.2</span></div>
+                    </div>
+                </div>
+
+                <div class="panel-section layers-section">
+                    <div class="panel-header">
+                        <h3>Layers</h3>
+                        <button id="btn-add-layer">+</button>
+                    </div>
+                    <div id="layers-list" class="list-container"></div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
