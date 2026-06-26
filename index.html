@@ -3,202 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Northstar - Digital Painting Application</title>
+    <title>My Art App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="start-screen" class="screen active">
-        <div class="start-container">
-            <h1>Northstar</h1>
-            <div class="preview-box">
-                <canvas id="preview-canvas"></canvas>
-            </div>
-            <div class="input-group-row">
-                <div class="input-group">
-                    <label for="canvas-width">Width (px)</label>
-                    <input type="number" id="canvas-width" value="1920" min="100" max="8000">
-                </div>
-                <div class="input-group">
-                    <label for="canvas-height">Height (px)</label>
-                    <input type="number" id="canvas-height" value="1080" min="100" max="8000">
-                </div>
-            </div>
-            <button id="create-btn" class="primary-btn">Create Canvas</button>
+
+<div class="app">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+        <div class="left">
+            <button>Undo</button>
+            <button>Redo</button>
+            <button>Save</button>
         </div>
-    </div>
 
-    <div id="app-workspace" class="screen">
-        <header class="top-bar">
-            <div class="top-section left">
-                <span class="logo">Northstar</span>
-                <button class="menu-btn" id="btn-new">New</button>
-                <button class="menu-btn" id="btn-save">Save</button>
-                <label class="menu-btn file-label" for="file-load">Load<input type="file" id="file-load" accept=".json" hidden></label>
-                <button class="menu-btn" id="btn-export">Export</button>
-            </div>
-            <div class="top-section center">
-                <span id="doc-info">1920 x 1080 | 100%</span>
-            </div>
-            <div class="top-section right">
-                <button class="icon-btn" id="btn-undo" title="Undo">
-                    <svg viewBox="0 0 24 24"><path d="M12.5 8c-2.65 0-5.05 1-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg>
-                </button>
-                <button class="icon-btn" id="btn-redo" title="Redo">
-                    <svg viewBox="0 0 24 24"><path d="M18.4 10.6C16.55 9 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22l2.37.78c1.05-3.19 4.06-5.5 7.59-5.5 1.96 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z"/></svg>
-                </button>
-                <button class="icon-btn" id="btn-zoom-out" title="Zoom Out">
-                    <svg viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
-                </button>
-                <button class="icon-btn" id="btn-zoom-in" title="Zoom In">
-                    <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                </button>
-                <button class="icon-btn" id="btn-fit" title="Fit Screen">
-                    <svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4V4zm16 16h-6v-2h4v-4h2v6zM4 20v-6h2v4h4v2H4zM20 4v6h-2V6h-4V4h6z"/></svg>
-                </button>
-            </div>
-        </header>
-
-        <div class="workspace-body">
-            <aside class="left-sidebar">
-                <button class="tool-btn active" data-tool="brush" title="Brush">
-                    <svg viewBox="0 0 24 24"><path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92.62 2.54 1 3.5 1 2.5 0 4.5-2 4.5-4.5 0-.42-.06-.83-.17-1.22L7 14zm14.41-8.37c.78-.78.78-2.05 0-2.83L19.2 .59c-.78-.78-2.05-.78-2.83 0l-9.7 9.7 3.78 3.78 9.96-9.44z"/></svg>
-                </button>
-                <button class="tool-btn" data-tool="eraser" title="Eraser">
-                    <svg viewBox="0 0 24 24"><path d="M16.24 3.56L21.19 8.5c.78.78.78 2.05 0 2.83L11.83 20.7c-.39.39-.9.59-1.41.59H3v-7.41c0-.51.2-1.02.59-1.41l9.82-9.82c.78-.78 2.05-.78 2.83 0zM5 19h4.34l7.07-7.07-4.34-4.34L5 14.66V19z"/></svg>
-                </button>
-                <button class="tool-btn" data-tool="smudge" title="Smudge">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                </button>
-                <button class="tool-btn" data-tool="blur" title="Blur">
-                    <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-                </button>
-                <button class="tool-btn" data-tool="selection" id="tool-selection" title="Selection (Lasso / Rect)">
-                    <svg viewBox="0 0 24 24"><path d="M3 3h2v2H3zm4 0h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2zm4 0h2v2h-2zM3 7h2v2H3zm16 0h2v2h-2zM3 11h2v2H3zm16 0h2v2h-2zM3 15h2v2H3zm16 0h2v2h-2zM3 19h2v2H3zm4 0h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
-                </button>
-                <button class="tool-btn" data-tool="transform" title="Transform">
-                    <svg viewBox="0 0 24 24"><path d="M4 18v3h3l11-11-3-3L4 18zm17.71-10.29c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                </button>
-                <button class="tool-btn" data-tool="shape" title="Shapes">
-                    <svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 6l5.99 12H6.01L12 8z"/></svg>
-                </button>
-                <button class="tool-btn" data-tool="text" title="Text">
-                    <svg viewBox="0 0 24 24"><path d="M5 4v3h5.5v12h3V7H19V4H5z"/></svg>
-                </button>
-                <button class="tool-btn" data-tool="eyedropper" title="Eyedropper">
-                    <svg viewBox="0 0 24 24"><path d="M17.44 1.5c-.77 0-1.5.3-2.06.86l-9.69 9.69c-.43.43-.72.98-.83 1.58l-.83 4.41c-.09.47.07.95.41 1.29.28.28.66.43 1.04.43.08 0 .17-.01.25-.02l4.41-.83c.6-.11 1.15-.4 1.58-.83l9.69-9.69c1.14-1.14 1.14-2.98 0-4.12l-1.41-1.41c-.56-.56-1.29-.86-2.06-.86zM15.38 4.48l1.41 1.41-1.12 1.12-1.41-1.41 1.12-1.12z"/></svg>
-                </button>
-                <button class="tool-btn" data-tool="fill" title="Fill Bucket">
-                    <svg viewBox="0 0 24 24"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-6h2v6zm0-8h-2V6h2v2z"/></svg>
-                </button>
-                <button class="tool-btn" data-tool="pan" title="Pan / View">
-                    <svg viewBox="0 0 24 24"><path d="M23 5.5V20c0 2.2-1.8 4-4 4H5c-2.2 0-4-1.8-4-4V5.5c0-1.38 1.12-2.5 2.5-2.5.34 0 .65.07.94.19C4.85 1.34 6.55 0 8.5 0c1.55 0 2.93.86 3.66 2.13C12.84 2.05 13.5 2 14.17 2c1.74 0 3.23 1.11 3.77 2.66.3-.1.62-.16.96-.16 1.38 0 2.5 1.12 2.5 2.5z"/></svg>
-                </button>
-            </aside>
-
-            <main class="canvas-viewport" id="viewport">
-                <div id="canvas-container">
-                    </div>
-            </main>
-
-            <aside class="right-sidebar">
-                <div class="tabs-header">
-                    <button class="tab-btn active" data-tab="color">Color</button>
-                    <button class="tab-btn" data-tab="brush-settings">Brushes</button>
-                    <button class="tab-btn" data-tab="layers">Layers</button>
-                </div>
-                <div class="tab-content-container">
-                    <div class="tab-content active" id="tab-color">
-                        <div class="hsv-picker-container">
-                            <canvas id="color-block" width="150" height="150"></canvas>
-                            <canvas id="color-strip" width="20" height="150"></canvas>
-                        </div>
-                        <div class="color-preview-row">
-                            <div id="color-preview"></div>
-                            <div class="color-inputs">
-                                <div class="num-input"><label>R</label><input type="number" id="rgb-r" min="0" max="255"></div>
-                                <div class="num-input"><label>G</label><input type="number" id="rgb-g" min="0" max="255"></div>
-                                <div class="num-input"><label>B</label><input type="number" id="rgb-b" min="0" max="255"></div>
-                            </div>
-                        </div>
-                        <div class="alpha-container">
-                            <label>Opacity</label>
-                            <input type="range" id="color-alpha" min="0" max="1" step="0.01" value="1">
-                        </div>
-                        <div class="swatches-section">
-                            <div class="section-title">Recent Colors</div>
-                            <div id="recent-swatches" class="swatch-grid"></div>
-                            <div class="section-title" style="margin-top:10px;">Custom Swatches <button id="add-swatch-btn">+</button></div>
-                            <div id="custom-swatches" class="swatch-grid"></div>
-                        </div>
-                    </div>
-
-                    <div class="tab-content" id="tab-brush-settings">
-                        <div class="brush-category-container">
-                            <label>Category</label>
-                            <select id="brush-category-select"></select>
-                            <label style="margin-top:5px;">Brush Preset</label>
-                            <select id="brush-preset-select"></select>
-                        </div>
-                        <div class="scroll-settings">
-                            <div class="setting-item"><label>Size</label><input type="range" id="br-size" min="1" max="500" value="20"></div>
-                            <div class="setting-item"><label>Opacity</label><input type="range" id="br-opacity" min="0" max="1" step="0.01" value="1"></div>
-                            <div class="setting-item"><label>Spacing</label><input type="range" id="br-spacing" min="0.01" max="2" step="0.01" value="0.1"></div>
-                            <div class="setting-item"><label>Hardness</label><input type="range" id="br-hardness" min="0" max="1" step="0.01" value="0.8"></div>
-                            <div class="setting-item"><label>Anti-Aliasing</label><input type="checkbox" id="br-aa" checked></div>
-                            <div class="setting-item"><label>Start Thickness</label><input type="range" id="br-start-thick" min="0" max="1" step="0.01" value="1"></div>
-                            <div class="setting-item"><label>End Thickness</label><input type="range" id="br-end-thick" min="0" max="1" step="0.01" value="1"></div>
-                            <div class="setting-item"><label>Start Opacity</label><input type="range" id="br-start-opac" min="0" max="1" step="0.01" value="1"></div>
-                            <div class="setting-item"><label>End Opacity</label><input type="range" id="br-end-opac" min="0" max="1" step="0.01" value="1"></div>
-                            <div class="setting-item"><label>Fade Out</label><input type="range" id="br-fade" min="0" max="1000" value="0"></div>
-                            <div class="setting-item"><label>Texture Image</label><input type="file" id="br-tex-file" accept="image/*"></div>
-                            <div class="setting-item"><label>Texture Scale</label><input type="range" id="br-tex-scale" min="0.1" max="5" step="0.1" value="1"></div>
-                            <div class="setting-item"><label>Texture Rotation</label><input type="range" id="br-tex-rot" min="0" max="360" value="0"></div>
-                            <div class="setting-item"><label>Texture Opacity</label><input type="range" id="br-tex-opac" min="0" max="1" step="0.01" value="0.5"></div>
-                            <div class="setting-item"><label>Angle Dynamics</label><input type="range" id="br-angle-dyn" min="0" max="1" step="0.01" value="0"></div>
-                            <div class="setting-item"><label>Speed → Size</label><input type="range" id="br-sp-size" min="-1" max="1" step="0.01" value="0"></div>
-                            <div class="setting-item"><label>Speed → Opacity</label><input type="range" id="br-sp-opac" min="-1" max="1" step="0.01" value="0"></div>
-                            <div class="setting-item"><label>Speed → Blur</label><input type="range" id="br-sp-blur" min="0" max="50" value="0"></div>
-                            <div class="setting-item"><label>Stabilization</label><input type="range" id="br-stabilize" min="1" max="30" value="5"></div>
-                            <div class="setting-item"><label>Pressure → Size</label><input type="range" id="br-pr-size" min="0" max="1" step="0.01" value="1"></div>
-                            <div class="setting-item"><label>Pressure → Opacity</label><input type="range" id="br-pr-opac" min="0" max="1" step="0.01" value="1"></div>
-                            <div class="setting-item"><label>Pressure → Flow</label><input type="range" id="br-pr-flow" min="0" max="1" step="0.01" value="1"></div>
-                            <div class="setting-item"><label>Pressure → Scatter</label><input type="range" id="br-pr-scat" min="0" max="100" value="0"></div>
-                            <div class="setting-item"><label>Pressure → Texture</label><input type="range" id="br-pr-tex" min="-1" max="1" step="0.01" value="0"></div>
-                        </div>
-                    </div>
-
-                    <div class="tab-content" id="tab-layers">
-                        <div class="layer-actions">
-                            <button id="add-layer-btn" class="panel-action-btn">+ Add Layer</button>
-                        </div>
-                        <div id="layers-list-container"></div>
-                    </div>
-                </div>
-            </aside>
+        <div class="right">
+            <button>100%</button>
+            <button>Brush 12px</button>
         </div>
-    </div>
+    </header>
 
-    <div id="export-modal" class="modal-overlay">
-        <div class="modal">
-            <h3>Export Image</h3>
-            <div class="setting-item">
-                <label>Format</label>
-                <select id="export-format">
-                    <option value="image/png">PNG (Full Quality)</option>
-                    <option value="image/jpeg">JPEG</option>
-                </select>
-            </div>
-            <div class="setting-item" id="jpg-quality-box" style="display:none;">
-                <label>JPEG Quality</label>
-                <input type="range" id="export-quality" min="0.1" max="1" step="0.1" value="0.9">
-            </div>
-            <div class="modal-buttons">
-                <button id="btn-modal-cancel">Cancel</button>
-                <button id="btn-modal-confirm" class="primary-btn">Download</button>
-            </div>
-        </div>
-    </div>
+    <!-- MAIN -->
+    <main>
 
-    <script src="app.js"></script>
+        <!-- TOOLS -->
+        <aside class="toolbar">
+
+            <button>🖌️</button>
+            <button>🩹</button>
+            <button>🪣</button>
+            <button>✂️</button>
+            <button>↔️</button>
+            <button>🎨</button>
+
+        </aside>
+
+        <!-- CANVAS -->
+        <section class="canvas-area">
+
+            <div class="paper">
+
+                <span>Canvas Preview</span>
+
+            </div>
+
+        </section>
+
+        <!-- LAYERS -->
+        <aside class="layers expanded" id="layers">
+
+            <div class="layers-header">
+
+                <h2>Layers</h2>
+
+                <button id="collapseBtn">❯</button>
+
+            </div>
+
+            <div class="layer selected">
+                👁 Sketch
+            </div>
+
+            <div class="layer">
+                👁 Line Art
+            </div>
+
+            <div class="layer">
+                👁 Flats
+            </div>
+
+            <div class="layer">
+                👁 Shadows
+            </div>
+
+            <div class="layer">
+                👁 Highlights
+            </div>
+
+            <button class="new-layer">
+                + New Layer
+            </button>
+
+        </aside>
+
+    </main>
+
+    <!-- BOTTOM BAR -->
+
+    <footer class="dock">
+
+        <button>Brush 1</button>
+        <button>Brush 2</button>
+        <button>Brush 3</button>
+        <button>Brush 4</button>
+        <button>Palette</button>
+
+    </footer>
+
+</div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
+
